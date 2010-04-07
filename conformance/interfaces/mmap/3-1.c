@@ -58,10 +58,10 @@ int main(void)
 	/* Size of the file */
 	total_size = 2 * page_size;
 
-	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_mmap_3_1_%d_1",
-		 getpid());
-	snprintf(tmpfname2, sizeof(tmpfname2), "/tmp/pts_mmap_3_1_%d_2",
-		 getpid());
+	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_mmap_3_1_%ld_1",
+		 (long)getpid());
+	snprintf(tmpfname2, sizeof(tmpfname2), "/tmp/pts_mmap_3_1_%ld_2",
+		 (long)getpid());
 
 	unlink(tmpfname);
 	unlink(tmpfname2);

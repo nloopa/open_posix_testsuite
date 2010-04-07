@@ -94,7 +94,7 @@ int main(void)
 	int fd, fail = 0;
 	unsigned int i;
 
-	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_mmap_5_1_%d", getpid());
+	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_mmap_5_1_%ld", (long)getpid());
 	unlink(tmpfname);
 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
 	if (fd == -1) {

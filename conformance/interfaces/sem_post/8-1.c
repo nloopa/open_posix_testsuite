@@ -122,7 +122,7 @@ int main(void)
 	int retval = PTS_UNRESOLVED;
 	int status;
 
-	snprintf(semname, sizeof(semname), "/" TEST "_%d", getpid());
+	snprintf(semname, sizeof(semname), "/" TEST "_%ld", (long)getpid());
 
 	sem = sem_open(semname, O_CREAT | O_EXCL, 0777, 1);
 	if (sem == SEM_FAILED) {
@@ -130,7 +130,7 @@ int main(void)
 		return PTS_UNRESOLVED;
 	}
 
-	snprintf(semname_1, sizeof(semname_1), "/" TEST "_%d_1", getpid());
+	snprintf(semname_1, sizeof(semname_1), "/" TEST "_%ld_1", (long)getpid());
 
 	sem_1 = sem_open(semname_1, O_CREAT | O_EXCL, 0777, 3);
 	if (sem_1 == SEM_FAILED) {
@@ -164,7 +164,7 @@ int main(void)
 		goto clean_up;
 		break;
 	}
-	fprintf(stderr, "P: child_1: %d forked\n", c_1);
+	fprintf(stderr, "P: child_1: %ld forked\n", (long)c_1);
 
 	c_2 = fork();
 	switch (c_2) {
@@ -177,7 +177,7 @@ int main(void)
 		goto clean_up;
 		break;
 	}
-	fprintf(stderr, "P: child_2: %d forked\n", c_2);
+	fprintf(stderr, "P: child_2: %ld forked\n", (long)c_2);
 
 	/* Make sure the two children has been waiting */
 	do {
@@ -197,7 +197,7 @@ int main(void)
 		goto clean_up;
 		break;
 	}
-	fprintf(stderr, "P: child_3: %d forked\n", c_3);
+	fprintf(stderr, "P: child_3: %ld forked\n", (long)c_3);
 
 	/* Make sure child 3 has been waiting for the lock */
 	do {
@@ -226,20 +226,21 @@ int main(void)
 				retval = PTS_PASS;
 				goto clean_up;
 			}
-			printf("Test Fail: Expect child_1: %d, got %d\n",
-			       c_1, ret_pid);
+			printf("Test Fail: Expect child_1: %ld, got %ld\n",
+			       (long)c_1, (long)ret_pid);
 			retval = PTS_FAIL;
 			goto clean_up;
 		} else {
-			printf("Test Fail: Expect child_3: %d, got %d\n",
-			       c_3, ret_pid);
+			printf("Test Fail: Expect child_3: %ld, got %ld\n",
+			       (long)c_3, (long)ret_pid);
 			retval = PTS_FAIL;
 			sem_post(sem);
 			while ((wait(NULL) > 0)) ;
 			goto clean_up;
 		}
 	} else {
-		printf("Test Fail: Expect child_2: %d, got %d\n", c_2, ret_pid);
+		printf("Test Fail: Expect child_2: %ld, got %ld\n",
+			(long)c_2, (long)ret_pid);
 		retval = PTS_FAIL;
 		sem_post(sem);
 		sem_post(sem);

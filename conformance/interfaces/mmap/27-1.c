@@ -39,7 +39,7 @@ int main(void)
 	size_t len = total_size;
 	int fd, err = 0;
 
-	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_mmap_27_1_%d", getpid());
+	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_mmap_27_1_%ld", (long)getpid());
 	unlink(tmpfname);
 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
 	if (fd == -1) {

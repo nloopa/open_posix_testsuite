@@ -27,7 +27,7 @@ int main(void)
 	sem_t *mysemp;
 	char semname[50];
 
-	sprintf(semname, "/" FUNCTION "_" TEST "_%d", getpid());
+	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());
 
 	mysemp = sem_open(semname, 0);
 

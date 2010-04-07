@@ -45,7 +45,7 @@ int main(void)
 	char semname[28];
 	int val;
 
-	sprintf(semname, "/" FUNCTION "_" TEST "_%d", getpid());
+	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());
 
 	gsemp = sem_open(semname, O_CREAT, 0777, SEMINITVAL);
 	if (gsemp == SEM_FAILED || gsemp == NULL) {

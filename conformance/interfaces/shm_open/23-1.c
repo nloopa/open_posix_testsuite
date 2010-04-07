@@ -84,7 +84,7 @@ int main(void)
 	int i, pid, result_fd;
 	char semname[20];
 
-	snprintf(semname, 20, "/sem23-1_%d", getpid());
+	snprintf(semname, 20, "/sem23-1_%ld", (long)getpid());
 	sem = sem_open(semname, O_CREAT, 0777, 1);
 	if (sem == SEM_FAILED || sem == NULL) {
 		perror("error at sem_open");

@@ -50,7 +50,7 @@ int main(void)
 	int exit_stat;
 
 	/* Create shared object */
-	snprintf(tmpfname, sizeof(tmpfname), "pts_mmap_7_4_%d", getpid());
+	snprintf(tmpfname, sizeof(tmpfname), "pts_mmap_7_4_%ld", (long)getpid());
 	shm_unlink(tmpfname);
 	shm_fd =
 	    shm_open(tmpfname, O_RDWR | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);

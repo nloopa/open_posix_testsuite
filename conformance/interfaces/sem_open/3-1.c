@@ -70,7 +70,7 @@ int main(void)
 		}
 	}
 
-	sprintf(semname, "/" FUNCTION "_" TEST "_%d", getpid());
+	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());
 
 	/*Trying to open the first Sem with read mode */
 	mysemp = sem_open(semname, O_CREAT, 0444, 1);
