@@ -73,6 +73,8 @@ void *t1_func(void *arg)
 			rc);
 		pthread_exit((void *)PTS_FAIL);
 	}
+
+	return NULL;
 }
 
 int main(void)

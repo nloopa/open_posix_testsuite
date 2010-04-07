@@ -64,6 +64,8 @@ void *t1_func(void *arg)
 			rc);
 		exit(PTS_FAIL);
 	}
+
+	return NULL;
 }
 
 int main(void)
