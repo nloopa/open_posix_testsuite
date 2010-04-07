@@ -25,12 +25,16 @@
 int main(void)
 {
 	sem_t mysemp;
+#ifdef _SC_SEM_VALUE_MAX
+	int counter = sysconf(_SC_SEM_VALUE_MAX);
+#else
 	int counter = SEM_VALUE_MAX;
 
 	if (SEM_VALUE_MAX >= INT_MAX) {
 		puts("Test skipped");
 		return PTS_PASS;
 	}
+#endif
 
 	++counter;
 	sem_init(&mysemp, 0, counter);
