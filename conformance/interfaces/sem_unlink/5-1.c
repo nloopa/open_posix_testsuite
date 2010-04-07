@@ -92,6 +92,8 @@ int main(void)
 {
 	int ret, error;
 	sem_t *sem;
+#undef PATH_MAX
+#undef NAME_MAX
 	long PATH_MAX, NAME_MAX;
 	char *sem_name;
 
