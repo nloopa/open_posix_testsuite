@@ -40,7 +40,7 @@
 #include <unistd.h>
 #include "posixtest.h"
 
-#define NAME_SIZE 20
+#define NAME_SIZE 50
 #define SHM_NAME "/posixtest_23-1_%d"
 
 /* The processes communicate by a shared memory object */
@@ -82,9 +82,9 @@ int child_func(void)
 int main(void)
 {
 	int i, pid, result_fd;
-	char semname[20];
+	char semname[50];
 
-	snprintf(semname, 20, "/sem23-1_%ld", (long)getpid());
+	snprintf(semname, sizeof(semname), "/sem23-1_%ld", (long)getpid());
 	sem = sem_open(semname, O_CREAT, 0777, 1);
 	if (sem == SEM_FAILED || sem == NULL) {
 		perror("error at sem_open");
@@ -105,7 +105,7 @@ int main(void)
 		return PTS_UNRESOLVED;
 	}
 
-	create_cnt = mmap(NULL, sizeof(*create_cnt), PROT_WRITE,
+	create_cnt = mmap(NULL, sizeof(*create_cnt), PROT_READ | PROT_WRITE,
 			  MAP_SHARED, result_fd, 0);
 	if (create_cnt == MAP_FAILED) {
 		perror("An error occurs when calling mmap()");
