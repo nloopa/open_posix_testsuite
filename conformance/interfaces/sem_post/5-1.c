@@ -42,7 +42,7 @@ void sighdl(int sig)
 
 int main(void)
 {
-	char semname[28];
+	char semname[50];
 	int val;
 
 	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());

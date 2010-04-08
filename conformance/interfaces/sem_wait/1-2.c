@@ -27,7 +27,7 @@
 int main(void)
 {
 	sem_t *mysemp;
-	char semname[28];
+	char semname[50];
 	int value = 10;
 	int val;
 

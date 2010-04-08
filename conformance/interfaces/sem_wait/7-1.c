@@ -35,7 +35,7 @@ void handler(int signo)
 int main(void)
 {
 	sem_t *mysemp;
-	char semname[28];
+	char semname[50];
 	int pid, status;
 
 	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());
