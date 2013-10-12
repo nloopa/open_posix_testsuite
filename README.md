@@ -1,4 +1,5 @@
-open_posix_testsuite
-====================
+Introduction
 
-open_posix_testsuite: Extracted from LTP
+====================
+Extracted from LTP. Modified to run on multi-core platforms.
+
