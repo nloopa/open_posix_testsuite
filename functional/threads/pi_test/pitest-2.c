@@ -48,11 +48,14 @@
 #include "test.h"
 #include "pitest.h"
 
-int cpus;
+#include "pitest_config_2.h"
+
+//int cpus;
 pthread_mutex_t mutex;
 volatile int ts_stop = 0;
 volatile double base_time;
 
+/*
 struct thread_param {
 	int index;
 	volatile int stop;
@@ -76,6 +79,7 @@ struct thread_param {
 	7, 0, 0, 3, SCHED_FIFO, "TF", 5, 0, 0, 0}, {
 	8, 0, 0, 3, SCHED_FIFO, "TF", 6, 0, 0, 0}
 };
+*/
 
 volatile unsigned do_work_dummy;
 void do_work(unsigned granularity_top, volatile unsigned *progress)

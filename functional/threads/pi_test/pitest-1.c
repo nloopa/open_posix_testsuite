@@ -46,12 +46,15 @@
 #include "test.h"
 #include "pitest.h"
 
-int cpus;
+#include "pitest_config_1.h"
+
+//int cpus;
 pthread_mutex_t mutex;
 
 volatile int ts_stop = 0;
 volatile double base_time;
 
+/*
 struct thread_param {
 	int index;
 	volatile int stop;
@@ -74,6 +77,7 @@ struct thread_param {
 	6, 0, 0, 3, SCHED_FIFO, "TF", 5, 0, 0, 0}, {
 	7, 0, 0, 3, SCHED_FIFO, "TF", 6, 0, 0, 0}
 };
+*/
 
 volatile unsigned do_work_dummy;
 void do_work(unsigned granularity_top, volatile unsigned *progress)
@@ -239,7 +243,7 @@ int main(int argc, char **argv)
 	int rc;
 
 	test_set_priority(pthread_self(), SCHED_FIFO, 6);
-	cpus = sysconf(_SC_NPROCESSORS_ONLN);
+//	cpus = sysconf(_SC_NPROCESSORS_ONLN);
 	base_time = seconds_read();
 
 	/* Initialize a mutex with PTHREAD_PRIO_INHERIT protocol */
