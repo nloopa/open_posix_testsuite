@@ -221,7 +221,7 @@ void *thread_tb(void *arg)
 	DPRINTF(stdout, "#EVENT %f TB Waited for %.2f s\n",
 		t1 - base_time, seconds);
 
-	if (rc != ETIMEDOUT) {
+	if (rc != ETIMEDOUT && rc != 0) {
 		EPRINTF("FAIL: Thread TB: lock returned %d %s, ", rc,
 			strerror(rc));
 		exit(FAIL);

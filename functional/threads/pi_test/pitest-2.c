@@ -221,7 +221,7 @@ void *thread_tb1(void *arg)
 	DPRINTF(stdout, "#EVENT %f TB1 Thread Waited for %.2f s\n",
 		t1 - base_time, t1 - t0);
 
-	if (rc != ETIMEDOUT) {
+	if (rc != ETIMEDOUT && rc != 0) {
 		EPRINTF("FAIL: Thread TB1: lock returned %d %s, "
 			"slept %f", rc, strerror(rc), t1 - t0);
 		exit(FAIL);
@@ -249,7 +249,7 @@ void *thread_tb2(void *arg)
 	t1 = seconds_read();
 	DPRINTF(stdout, "#EVENT %f TB2 Thread Waited for %.2f s\n",
 		t1 - base_time, t1 - t0);
-	if (rc != ETIMEDOUT) {
+	if (rc != ETIMEDOUT && rc != 0) {
 		EPRINTF("FAIL: Thread TB2: lock returned %d %s, "
 			"slept %f", rc, strerror(rc), t1 - t0);
 		exit(FAIL);
