@@ -32,14 +32,15 @@ CFLAGS+=		-I"$(srcdir)/../include"
 LDFLAGS+=		
 LDLIBS+=		-lpthread
 
-INSTALL_TARGETS+=	pi_test_pitest-2.run-test pi_test_pitest-4.run-test pi_test_pitest-6.run-test pi_test_pitest-3.run-test pi_test_pitest-5.run-test pi_test_pitest-1.run-test
-MAKE_TARGETS+=		pi_test_pitest-2.run-test pi_test_pitest-4.run-test pi_test_pitest-6.run-test pi_test_pitest-3.run-test pi_test_pitest-5.run-test pi_test_pitest-1.run-test
+INSTALL_TARGETS+=	pi_test_pitest-4.run-test pi_test_pitest-5.run-test pi_test_pitest-2.run-test pi_test_pitest-6.run-test pi_test_pitest-1.run-test pi_test_pitest-3.run-test
+MAKE_TARGETS+=		pi_test_pitest-4.run-test pi_test_pitest-5.run-test pi_test_pitest-2.run-test pi_test_pitest-6.run-test pi_test_pitest-1.run-test pi_test_pitest-3.run-test
 
 all: $(MAKE_TARGETS)
 	@if [ -d speculative ]; then $(MAKE) -C speculative all; fi
 
 clean:
 	rm -f $(MAKE_TARGETS) logfile* run.sh *.core
+	rm -rf *.h *.pyc
 	@if [ -d speculative ]; then $(MAKE) -C speculative clean; fi
 
 install: $(INSTALL_DIR) run.sh
@@ -62,19 +63,11 @@ run.sh:
 	@echo "$(top_srcdir)/bin/run-tests.sh $(subdir) $(INSTALL_TARGETS)" >> $@
 	@chmod +x run.sh
 
-pi_test_pitest-2.run-test: $(srcdir)/pitest-2.c
-	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-2.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
-		 cat logfile.$$$$; \
-		 echo "$(subdir)/pitest-2 compile PASSED"; \
-		 echo "$(subdir)/pitest-2 compile PASSED" >> $(LOGFILE); \
-	else \
-		 cat logfile.$$$$; \
-		 echo "$(subdir)/pitest-2 compile FAILED; SKIPPING"; \
-		(echo "$(subdir)/pitest-2 compile FAILED; SKIPPING"; cat logfile.$$$$) >> $(LOGFILE); \
-	fi; \
-	rm -f logfile.$$$$
+# Generate the header files
+header:
+	python pitest_config.py
 
-pi_test_pitest-4.run-test: $(srcdir)/pitest-4.c
+pi_test_pitest-4.run-test: $(srcdir)/pitest-4.c header
 	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-4.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
 		 cat logfile.$$$$; \
 		 echo "$(subdir)/pitest-4 compile PASSED"; \
@@ -86,31 +79,7 @@ pi_test_pitest-4.run-test: $(srcdir)/pitest-4.c
 	fi; \
 	rm -f logfile.$$$$
 
-pi_test_pitest-6.run-test: $(srcdir)/pitest-6.c
-	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-6.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
-		 cat logfile.$$$$; \
-		 echo "$(subdir)/pitest-6 compile PASSED"; \
-		 echo "$(subdir)/pitest-6 compile PASSED" >> $(LOGFILE); \
-	else \
-		 cat logfile.$$$$; \
-		 echo "$(subdir)/pitest-6 compile FAILED; SKIPPING"; \
-		(echo "$(subdir)/pitest-6 compile FAILED; SKIPPING"; cat logfile.$$$$) >> $(LOGFILE); \
-	fi; \
-	rm -f logfile.$$$$
-
-pi_test_pitest-3.run-test: $(srcdir)/pitest-3.c
-	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-3.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
-		 cat logfile.$$$$; \
-		 echo "$(subdir)/pitest-3 compile PASSED"; \
-		 echo "$(subdir)/pitest-3 compile PASSED" >> $(LOGFILE); \
-	else \
-		 cat logfile.$$$$; \
-		 echo "$(subdir)/pitest-3 compile FAILED; SKIPPING"; \
-		(echo "$(subdir)/pitest-3 compile FAILED; SKIPPING"; cat logfile.$$$$) >> $(LOGFILE); \
-	fi; \
-	rm -f logfile.$$$$
-
-pi_test_pitest-5.run-test: $(srcdir)/pitest-5.c
+pi_test_pitest-5.run-test: $(srcdir)/pitest-5.c header
 	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-5.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
 		 cat logfile.$$$$; \
 		 echo "$(subdir)/pitest-5 compile PASSED"; \
@@ -122,7 +91,31 @@ pi_test_pitest-5.run-test: $(srcdir)/pitest-5.c
 	fi; \
 	rm -f logfile.$$$$
 
-pi_test_pitest-1.run-test: $(srcdir)/pitest-1.c
+pi_test_pitest-2.run-test: $(srcdir)/pitest-2.c header
+	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-2.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
+		 cat logfile.$$$$; \
+		 echo "$(subdir)/pitest-2 compile PASSED"; \
+		 echo "$(subdir)/pitest-2 compile PASSED" >> $(LOGFILE); \
+	else \
+		 cat logfile.$$$$; \
+		 echo "$(subdir)/pitest-2 compile FAILED; SKIPPING"; \
+		(echo "$(subdir)/pitest-2 compile FAILED; SKIPPING"; cat logfile.$$$$) >> $(LOGFILE); \
+	fi; \
+	rm -f logfile.$$$$
+
+pi_test_pitest-6.run-test: $(srcdir)/pitest-6.c header
+	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-6.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
+		 cat logfile.$$$$; \
+		 echo "$(subdir)/pitest-6 compile PASSED"; \
+		 echo "$(subdir)/pitest-6 compile PASSED" >> $(LOGFILE); \
+	else \
+		 cat logfile.$$$$; \
+		 echo "$(subdir)/pitest-6 compile FAILED; SKIPPING"; \
+		(echo "$(subdir)/pitest-6 compile FAILED; SKIPPING"; cat logfile.$$$$) >> $(LOGFILE); \
+	fi; \
+	rm -f logfile.$$$$
+
+pi_test_pitest-1.run-test: $(srcdir)/pitest-1.c header
 	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-1.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
 		 cat logfile.$$$$; \
 		 echo "$(subdir)/pitest-1 compile PASSED"; \
@@ -131,6 +124,18 @@ pi_test_pitest-1.run-test: $(srcdir)/pitest-1.c
 		 cat logfile.$$$$; \
 		 echo "$(subdir)/pitest-1 compile FAILED; SKIPPING"; \
 		(echo "$(subdir)/pitest-1 compile FAILED; SKIPPING"; cat logfile.$$$$) >> $(LOGFILE); \
+	fi; \
+	rm -f logfile.$$$$
+
+pi_test_pitest-3.run-test: $(srcdir)/pitest-3.c header
+	@if $(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $(srcdir)/pitest-3.c $(LDLIBS) > logfile.$$$$ 2>&1; then \
+		 cat logfile.$$$$; \
+		 echo "$(subdir)/pitest-3 compile PASSED"; \
+		 echo "$(subdir)/pitest-3 compile PASSED" >> $(LOGFILE); \
+	else \
+		 cat logfile.$$$$; \
+		 echo "$(subdir)/pitest-3 compile FAILED; SKIPPING"; \
+		(echo "$(subdir)/pitest-3 compile FAILED; SKIPPING"; cat logfile.$$$$) >> $(LOGFILE); \
 	fi; \
 	rm -f logfile.$$$$
 
