@@ -7,8 +7,10 @@
 # Makefiles that are considered critical to execution; if they don't exist
 # all of the Makefiles will be rebuilt by default.
 CRITICAL_CONFORMANCE_MAKEFILE=	conformance/interfaces/timer_settime/Makefile
-CRITICAL_FUNCTIONAL_MAKEFILE=	functional/threads/pi_test/Makefile
 CRITICAL_SECTION_MAKEFILE=	stress/threads/sem_open/Makefile
+# Keep customized pi_test/Makfile
+#CRITICAL_FUNCTIONAL_MAKEFILE=	functional/threads/pi_test/Makefile
+CRITICAL_FUNCTIONAL_MAKEFILE=	
 
 CRITICAL_MAKEFILES=	$(CRITICAL_CONFORMANCE_MAKEFILE) \
 			$(CRITICAL_FUNCTIONAL_MAKEFILE) \
@@ -109,6 +111,7 @@ $(CRITICAL_MAKEFILES): \
     $(top_srcdir)/LDFLAGS			\
     $(top_srcdir)/LDLIBS
 	@$(MAKE) generate-makefiles
+	$(top_srcdir)/tile-prepare
 
 #tests-pretty:
 #	$(MAKE) all | column -t -s:

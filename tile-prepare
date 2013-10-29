@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#
+# Customize for TILE patforms.
+#
+
+cp -f ./functional/threads/pi_test/tile.Makefile ./functional/threads/pi_test/Makefile
