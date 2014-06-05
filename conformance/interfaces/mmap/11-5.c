@@ -58,7 +58,7 @@ int main(void)
 	/* mmap will create a partial page */
 	len = page_size / 2;
 
-	snprintf(tmpfname, sizeof(tmpfname), "pts_mmap_11_5_%d", getpid());
+	snprintf(tmpfname, sizeof(tmpfname), "pts_mmap_11_5_%ld", (long)getpid());
 	child = fork();
 	switch (child) {
 	case 0:

@@ -45,7 +45,7 @@ int main(void)
 	unsigned long page_size = sysconf(_SC_PAGE_SIZE);
 
 	shm_size = 2 * page_size;
-	snprintf(tmpfname, sizeof(tmpfname), "pts_mmap_24_2_%d", getpid());
+	snprintf(tmpfname, sizeof(tmpfname), "pts_mmap_24_2_%ld", (long)getpid());
 
 	/* Create shared object */
 	shm_unlink(tmpfname);

@@ -98,7 +98,7 @@ int main(void)
 		return PTS_UNRESOLVED;
 	}
 
-	snprintf(tmpfname, sizeof(tmpfname), "pts_mmap_18_1_%d", getpid());
+	snprintf(tmpfname, sizeof(tmpfname), "pts_mmap_18_1_%ld", (long)getpid());
 
 	/* Create shared object */
 	shm_unlink(tmpfname);

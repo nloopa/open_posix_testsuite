@@ -39,7 +39,7 @@ int main(void)
 	size_t size = 1024;
 	int fd;
 
-	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_mmap_6_4_%d", getpid());
+	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_mmap_6_4_%ld", (long)getpid());
 
 	/* Create a tmp file */
 	unlink(tmpfname);

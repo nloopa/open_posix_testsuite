@@ -27,11 +27,11 @@
 int main(void)
 {
 	sem_t *mysemp;
-	char semname[28];
+	char semname[50];
 	int value = 10;
 	int val;
 
-	sprintf(semname, "/" FUNCTION "_" TEST "_%d", getpid());
+	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());
 
 	/* Initial value of Semaphore is 10 */
 	mysemp = sem_open(semname, O_CREAT, 0777, value);

@@ -26,9 +26,9 @@
 int main(void)
 {
 	sem_t *mysemp;
-	char semname[28];
+	char semname[50];
 
-	sprintf(semname, "/" FUNCTION "_" TEST "_%d", getpid());
+	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());
 
 	/* Initial value of Semaphore is 1 */
 	mysemp = sem_open(semname, O_CREAT, 0, 1);

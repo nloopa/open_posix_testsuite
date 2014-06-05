@@ -44,11 +44,11 @@ void handler(int signo)
 
 int main(void)
 {
-	char semname[28];
+	char semname[50];
 	struct sigaction act;
 	int val;
 
-	sprintf(semname, "/" FUNCTION "_" TEST "_%d", getpid());
+	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());
 
 	gsemp = sem_open(semname, O_CREAT, 0777, SEMINITVAL);
 

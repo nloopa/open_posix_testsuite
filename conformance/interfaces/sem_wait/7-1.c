@@ -35,10 +35,10 @@ void handler(int signo)
 int main(void)
 {
 	sem_t *mysemp;
-	char semname[28];
+	char semname[50];
 	int pid, status;
 
-	sprintf(semname, "/" FUNCTION "_" TEST "_%d", getpid());
+	sprintf(semname, "/" FUNCTION "_" TEST "_%ld", (long)getpid());
 
 	mysemp = sem_open(semname, O_CREAT, 0, 1);
 	if (mysemp == SEM_FAILED || mysemp == NULL) {
